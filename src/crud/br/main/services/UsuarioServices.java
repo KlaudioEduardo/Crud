@@ -4,11 +4,12 @@ import java.util.List;
 import java.util.Scanner;
 
 import crud.br.models.Usuario;
-import weslley.br.models.Aluno;
+
 
 public class UsuarioServices {
 
 	private static Scanner scan = new Scanner(System.in);
+	private Long iDSelecionado;
 
 	public void cadastrarUsuario(List<Usuario> bancoUsuario) {
 
@@ -52,44 +53,52 @@ public class UsuarioServices {
 	}
 
 	public void atualizarUsuario(List<Usuario> bancoUsuario, Scanner scan) {
-	    System.out.println("\n ********** ATUALIZA ************* ");
-	    
-	    if (verificaUsuario(bancoUsuario)) {
-	        System.out.println("Digite o ID que deseja atualizar: ");
-	        Long iDSelecionado = scan.nextLong();
+		System.out.println("\n ********** ATUALIZA ************* ");
 
-	        Usuario usuario = buscarUsuarioPorID(bancoUsuario, iDSelecionado);
+		if (verificaUsuario(bancoUsuario)) {
+			System.out.println("Digite o ID que deseja atualizar: ");
+			Long iDSelecionado = scan.nextLong();
 
-	        if (usuario != null) {
-	            while (true) {
-	                try {
-	                    System.out.print("Novo Nome: ");
-	                    usuario.setNome(scan.next());
+			Usuario usuario = buscarUsuarioPorID(bancoUsuario, iDSelecionado);
 
-	                    System.out.print("Novo CPF: ");
-	                    usuario.setCpf(scan.next());
+			if (usuario != null) {
+				while (true) {
+					try {
+						System.out.print("Novo Nome: ");
+						usuario.setNome(scan.next());
 
-	                    System.out.print("Novo Email: ");
-	                    usuario.setEmail(scan.next());
+						System.out.print("Novo CPF: ");
+						usuario.setCpf(scan.next());
 
-	                    System.out.println("Usuario atualizado com sucesso!");
-	                    break;
-	                } catch (Exception e) {
-	                    System.out.println("Erro, tente novamente.");
-	                    scan.nextLine();
-	                }
-	            }
-	        } else {
-	            System.out.println("ID não encontrado.");
-	        }
-	    }
+						System.out.print("Novo Email: ");
+						usuario.setEmail(scan.next());
+
+						System.out.println("Usuario atualizado com sucesso!");
+						break;
+					} catch (Exception e) {
+						System.out.println("Erro, tente novamente.");
+						scan.nextLine();
+					}
+				}
+			} else {
+				System.out.println("ID não encontrado.");
+			}
+		}
 	}
 
 	public void deletarUsuario(List<Usuario> bancoUsuario, Scanner scan) {
-		System.out.println("Exclusão");
-		if(verificaUsuario(bancoUsuario));
 		
-		
+		System.out.println("Digite o ID do usuario a ser removido: ");
+		iDSelecionado = scan.nextLong();
+
+		Usuario usuario = buscarUsuarioPorID(bancoUsuario, iDSelecionado);
+
+		if (bancoUsuario != null) {
+			bancoUsuario.remove(usuario);
+			System.out.println("Removido com sucesso.");
+		} else {
+			System.err.println("ID não encontrado.");
+		}
 
 	}
 
@@ -115,17 +124,18 @@ public class UsuarioServices {
 	}
 
 	public void exibeUsuariosCadastrados(List<Usuario> bancoUsuarios) {
-		System.out.println("**************************************************");
-		System.out.println("ID \t Nome \t\t CPF \t\t Email");
+		System.out.println("**********************************************************************************");
+		System.out.println("ID\t\tNome\t\t\tCPF\t\t\tEmail");
+		System.out.println("**********************************************************************************");
 
 		for (Usuario usuario : bancoUsuarios) {
-			System.out.print(usuario.getId() + "\t ");
-			System.out.print(usuario.getNome() + "\t ");
-			System.out.print(usuario.getCpf() + "\t ");
-			System.out.println(usuario.getEmail());
+		    System.out.print(usuario.getId() + "\t\t"); 
+		    System.out.print(usuario.getNome() + "\t\t"); 
+		    System.out.print(usuario.getCpf() + "\t\t");
+		    System.out.println(usuario.getEmail()); 
 		}
 
-		System.out.println("**************************************************");
+		System.out.println("**********************************************************************************");
 	}
 
 	public static boolean verificaUsuario(List<Usuario> bancoUsuarios) {
@@ -139,7 +149,7 @@ public class UsuarioServices {
 
 	public static Usuario buscarUsuarioPorID(List<Usuario> bancoUsuarios, Long iDSelecionado) {
 		for (Usuario usuario : bancoUsuarios) {
-			if (usuario.getNome().equals(iDSelecionado)) {
+			if (usuario.getId().equals(iDSelecionado)) {
 				return usuario;
 			}
 		}
