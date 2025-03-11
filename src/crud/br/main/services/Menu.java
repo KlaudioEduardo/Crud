@@ -9,7 +9,7 @@ import crud.br.models.Usuario;
 public class Menu {
 
     private static Scanner scan = new Scanner(System.in);
-    private UsuarioServices usuarioServices = new UsuarioServices();
+    private UsuarioService usuarioServices = new UsuarioService();
 
     public void startaMenu(List<Usuario> bancoUsuario) {
         try {
@@ -26,7 +26,7 @@ public class Menu {
                             usuarioServices.cadastrarUsuario(bancoUsuario);
                             break;
                         case 2:
-                            usuarioServices.consultarUsuario(bancoUsuario, scan);
+                        usuarioServices.consultarUsuario(bancoUsuario, scan);
                             break;
                         case 3:
                             usuarioServices.atualizarUsuario(bancoUsuario, scan);
