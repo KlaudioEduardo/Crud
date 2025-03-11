@@ -1,6 +1,6 @@
 package crud.br.main.services;
 
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -17,8 +17,8 @@ public class Menu {
 
 	public void startaMenu(List<Usuario> bancoUsuario) {
 		while (true) {
-			System.out.println("*************************");
-			System.out.println("O que você deseja: ");
+			
+			System.out.println("O que você deseja fazer: ");
 			System.out.println("1 - Cadastrar \n2 - Consultar \n3 - Atualizar \n4 - Deletar \n5 - Sair");
 			
 			int opcaoSelecionada = scan.nextInt();
@@ -30,10 +30,10 @@ public class Menu {
 				usuarioServices.cadastrarUsuario(bancoUsuario);
 				break;
 			case 2:
-				usuarioServices.buscaUsuarioById(null, bancoUsuario);
+				usuarioServices.consultarUsuario(bancoUsuario, scan);
 				break;
 			case 3:
-				
+				usuarioServices.atualizarUsuario(bancoUsuario, scan);
 				break;
 			case 4:
 				
